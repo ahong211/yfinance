@@ -150,6 +150,10 @@ class Ticker(TickerBase):
         return self.get_earnings()
 
     @property
+    def yearly_target_est(self):
+        return self.get_yearly_target_est()
+
+    @property
     def quarterly_earnings(self):
         return self.get_earnings(freq='quarterly')
 

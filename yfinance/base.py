@@ -56,6 +56,7 @@ class TickerBase():
         self._institutional_holders = None
         self._mutualfund_holders = None
         self._isin = None
+        self._yearly_target_est = None
 
         self._calendar = None
         self._expirations = {}
@@ -358,6 +359,13 @@ class TickerBase():
         except Exception:
             pass
 
+        # yearly target estimates
+        try:
+            target = data['financialData']['targetMeanPrice']['raw']
+            self._yearly_target_est = target
+        except Exception:
+            pass
+
         # analyst recommendations
         try:
             rec = _pd.DataFrame(
@@ -461,6 +469,11 @@ class TickerBase():
         data = self._earnings[freq]
         if as_dict:
             return data.to_dict()
+        return data
+
+    def get_yearly_target_est(self, proxy=None):
+        self._get_fundamentals(proxy)
+        data = self._yearly_target_est
         return data
 
     def get_financials(self, proxy=None, as_dict=False, freq="yearly"):
