@@ -361,7 +361,7 @@ class TickerBase():
 
         # yearly target estimates
         try:
-            target = data['financialData']['targetMeanPrice']['raw']
+            target = data['financialData']['targetMeanPrice']
             self._yearly_target_est = target
         except Exception:
             pass
