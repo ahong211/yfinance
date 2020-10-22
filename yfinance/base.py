@@ -367,7 +367,7 @@ class TickerBase():
         except Exception:
             pass
 
-        # recommendation rating"
+        # recommendation rating
         try:
             rec_rating = data['financialData']['recommendationMean']
             self._recommendation_rating = rec_rating
