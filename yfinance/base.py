@@ -57,6 +57,7 @@ class TickerBase():
         self._mutualfund_holders = None
         self._isin = None
         self._yearly_target_est = None
+        self._recommendation_rating = None
 
         self._calendar = None
         self._expirations = {}
@@ -366,6 +367,13 @@ class TickerBase():
         except Exception:
             pass
 
+        # recommendation rating"
+        try:
+            rec_rating = data['financialData']['recommendationMean']
+            self._recommendation_rating = rec_rating
+        except Exception:
+            pass
+
         # analyst recommendations
         try:
             rec = _pd.DataFrame(
@@ -474,6 +482,11 @@ class TickerBase():
     def get_yearly_target_est(self, proxy=None):
         self._get_fundamentals(proxy)
         data = self._yearly_target_est
+        return data
+
+    def get_recommendation_rating(self, proxy=None):
+        self._get_fundamentals(proxy)
+        data = self._recommendation_rating
         return data
 
     def get_financials(self, proxy=None, as_dict=False, freq="yearly"):
