@@ -158,6 +158,14 @@ class Ticker(TickerBase):
         return self.get_recommendation_rating()
 
     @property
+    def current_price(self):
+        return self.get_current_price()
+
+    @property
+    def financial_data(self):
+        return self.get_financial_data()
+
+    @property
     def quarterly_earnings(self):
         return self.get_earnings(freq='quarterly')
 

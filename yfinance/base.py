@@ -58,6 +58,8 @@ class TickerBase():
         self._isin = None
         self._yearly_target_est = None
         self._recommendation_rating = None
+        self._current_price = None
+        self._financial_data = None
 
         self._calendar = None
         self._expirations = {}
@@ -374,6 +376,20 @@ class TickerBase():
         except Exception:
             pass
 
+        # current price
+        try:
+            current_price = data['financialData']['currentPrice']
+            self._current_price = current_price
+        except Exception:
+            pass
+
+        # all financial data info
+        try:
+            financial_data = data['financialData']
+            self._financial_data = financial_data
+        except Exception:
+            pass
+
         # analyst recommendations
         try:
             rec = _pd.DataFrame(
@@ -487,6 +503,16 @@ class TickerBase():
     def get_recommendation_rating(self, proxy=None):
         self._get_fundamentals(proxy)
         data = self._recommendation_rating
+        return data
+
+    def get_current_price(self, proxy=None):
+        self._get_fundamentals(proxy)
+        data = self._current_price
+        return data
+
+    def get_financial_data(self, proxy=None):
+        self._get_fundamentals(proxy)
+        data = self._financial_data
         return data
 
     def get_financials(self, proxy=None, as_dict=False, freq="yearly"):
